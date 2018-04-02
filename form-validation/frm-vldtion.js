@@ -2,7 +2,9 @@
  * 2) В форму обратной связи добавить возможность выбора города обращения. 
  * Сам список должен загружаться после загрузки страницы через AJAX.
  */
+// запрашиваем AJAX адрес сервера(файл JSON)
 const questionUrl = './cities.json';
+// массив для названий городов
 var cities = [];
 
 //AJAX
@@ -12,6 +14,7 @@ $.ajax({
     async: false, //Запрос синхронный
     dataType: 'json', //Для авто преобразования
     success: function (data) {
+        // массив с названиями городов
         cities = data.cities;
     },
     error: function (data) {
@@ -19,11 +22,17 @@ $.ajax({
     }
 });
 
+// после того, как загрузился документ
 $(document).ready(function () {
+// html тег select с классом city
 let select = $('.city ');
+    // для каждого элемента из массива с городами
     cities.forEach(function(sity) {
+        // список внутри тега select (<option></option>)
         let option = document.createElement('option');
+        // название города внутри option
         $(option).text(sity);
+        // размещение <option>sity</option> внутри select
         $(option).appendTo(select);
     })
 });
